@@ -1,0 +1,37 @@
+- hosts: all
+  remote_user= root
+  tasks:
+  - name: updating yum package
+    yum:
+     state: latest
+  - name: install apache service
+    yum:
+     name: httpd
+     state: latest
+   - name: start apache service
+     service:
+      name: httpd
+      state: started
+- hosts: drop3
+  remote_user= root
+  tasks:
+  - name: copy drop3.html
+    copy:
+     src= /drop3.html
+     dest= /var/www/drop3.html
+    notify:
+     restart-apache
+- hosts: drop4
+  remote_user=root
+  tasks:
+  - name: copy drop4.html
+    copy:
+     src= /drop4.html
+     dest= /var/www/drop4.html
+    notify:
+     restart-apache
+  handlers:
+  - name: restart-apache
+    service:
+      name: httpd
+      state: restarted
