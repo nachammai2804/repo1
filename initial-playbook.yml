@@ -1,5 +1,5 @@
 - hosts: all
-  remote_user= root
+  remote_user: root
   tasks:
   - name: updating yum package
     yum:
@@ -21,6 +21,11 @@
      dest= /var/www/drop3.html
     notify:
      restart-apache
+  handlers:
+  - name: restart-apache
+    service:
+      name: httpd
+      state: restarted
 - hosts: drop4
   remote_user=root
   tasks:
