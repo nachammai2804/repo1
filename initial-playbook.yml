@@ -13,12 +13,12 @@
      name: httpd
      state: started
 - hosts: drop3
-  remote_user= root
+  remote_user: root
   tasks:
   - name: copy drop3.html
     copy:
-     src= /drop3.html
-     dest= /var/www/drop3.html
+     src: /drop3.html
+     dest: /var/www/drop3.html
     notify:
      restart-apache
   handlers:
@@ -27,12 +27,12 @@
       name: httpd
       state: restarted
 - hosts: drop4
-  remote_user=root
+  remote_user: root
   tasks:
   - name: copy drop4.html
     copy:
-     src= /drop4.html
-     dest= /var/www/drop4.html
+     src: /drop4.html
+     dest: /var/www/drop4.html
     notify:
      restart-apache
   handlers:
