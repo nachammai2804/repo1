@@ -1,14 +1,20 @@
 - hosts: all
-  remote_user: root
+  vars:
+   sudo: yes
+   remote_user: root
   tasks:
   - name: updating yum package
     yum:
      state: latest
   - name: install apache service
+    become: yes
+    become_user: root
     yum:
      name: httpd
      state: latest
   - name: start apache service
+    become: yes
+    become_user: root
     service:
      name: httpd
      state: started
@@ -16,13 +22,20 @@
   remote_user: root
   tasks:
   - name: copy drop3.html
+    become: yes
+    become_user: root
     copy:
-     src: /drop3.html
-     dest: /var/www/drop3.html
+     src: /var/lib/jenkins/workspace/ansibleinstallation/drop3.html
+     dest: /var/www/html/drop3.html
+     owner: root
+     group: root
+     mode: 0777
     notify:
      restart-apache
   handlers:
   - name: restart-apache
+    become: yes
+    become_user: root
     service:
       name: httpd
       state: restarted
@@ -30,13 +43,20 @@
   remote_user: root
   tasks:
   - name: copy drop4.html
+    become: yes
+    become_user: root
     copy:
-     src: /drop4.html
-     dest: /var/www/drop4.html
+     src: /var/lib/jenkins/workspace/ansibleinstallation/drop4.html
+     dest: /var/www/html/drop4.html
+     owner: root
+     group: root
+     mode: 0777
     notify:
      restart-apache
   handlers:
   - name: restart-apache
+    become: yes
+    become_user: root
     service:
       name: httpd
       state: restarted
