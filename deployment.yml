@@ -4,10 +4,10 @@
     copy:
       src: "{{item}}"
       dest: /jboss/standalone/deployments/
-     with_items:
+    with_items:
       - jboss-helloworld.war
       - ticket-monster.war
-     notify: restart_jboss
+    notify: restart_jboss
   handlers:
   - name: restart_jboss
     service:
