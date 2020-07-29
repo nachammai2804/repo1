@@ -5,8 +5,8 @@
       src: "{{item}}"
       dest: /jboss/standalone/deployments/
      with_items:
-       - jboss-helloworld.war
-       - ticket-monster.war
+      - jboss-helloworld.war
+      - ticket-monster.war
      notify: restart_jboss
   handlers:
   - name: restart_jboss
